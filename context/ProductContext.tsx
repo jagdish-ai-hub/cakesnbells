@@ -11,6 +11,7 @@ interface ProductContextType {
   deleteProduct: (id: string) => void;
   addSection: (name: string) => void;
   deleteSection: (name: string) => void;
+  restoreData: (products: Product[], sections: string[]) => void;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -68,6 +69,11 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
     // For now, we keep the tag on products but it won't show on home page if section is gone.
   };
 
+  const restoreData = (newProducts: Product[], newSections: string[]) => {
+    setProducts(newProducts);
+    setSections(newSections);
+  };
+
   return (
     <ProductContext.Provider value={{ 
       products, 
@@ -76,7 +82,8 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
       updateProduct, 
       deleteProduct,
       addSection,
-      deleteSection
+      deleteSection,
+      restoreData
     }}>
       {children}
     </ProductContext.Provider>

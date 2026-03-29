@@ -8,7 +8,7 @@ import { GoogleGenAI } from "@google/genai";
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
 export default function AdminPage() {
-  const { products, sections, addProduct, updateProduct, deleteProduct, addSection, deleteSection } = useProducts();
+  const { products, sections, addProduct, updateProduct, deleteProduct, addSection, deleteSection, restoreData } = useProducts();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -200,6 +200,46 @@ export default function AdminPage() {
     setShowForm(true);
     setGeneratedImage(null);
     window.scrollTo(0, 0);
+  };
+
+  const handleExportData = () => {
+    const data = { products, sections };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `cakes-n-bells-backup-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const content = event.target?.result as string;
+        const data = JSON.parse(content);
+        
+        if (data.products && Array.isArray(data.products) && data.sections && Array.isArray(data.sections)) {
+          if (window.confirm(`Warning: This will overwrite your current products. Are you sure you want to restore ${data.products.length} products?`)) {
+            restoreData(data.products, data.sections);
+            alert("Data restored successfully!");
+          }
+        } else {
+          alert("Invalid backup file format.");
+        }
+      } catch (error) {
+        console.error("Import error:", error);
+        alert("Failed to read the backup file.");
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = ''; // Reset input
   };
 
   const handleDelete = (id: string) => {
@@ -589,6 +629,33 @@ export default function AdminPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* DATA BACKUP & RESTORE SECTION */}
+      <div className="bg-white p-6 rounded-2xl shadow-sm border border-pink-50 mt-8">
+        <h3 className="text-lg font-bold text-gray-800 mb-4 font-serif">Data Backup & Restore</h3>
+        <p className="text-xs text-gray-500 mb-4">
+          Since this app is serverless, your products are saved in your browser. 
+          Export a backup file before making code changes in AI Studio, then Import it back to restore your data!
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <button 
+            onClick={handleExportData}
+            className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg text-sm font-bold hover:bg-indigo-100 flex items-center transition-colors"
+          >
+            <i className="fas fa-download mr-2"></i> Export Backup
+          </button>
+          
+          <label className="px-4 py-2 bg-green-50 text-green-600 rounded-lg text-sm font-bold hover:bg-green-100 flex items-center cursor-pointer transition-colors">
+            <i className="fas fa-upload mr-2"></i> Import Backup
+            <input 
+              type="file" 
+              accept=".json" 
+              className="hidden" 
+              onChange={handleImportData}
+            />
+          </label>
+        </div>
       </div>
     </div>
   );

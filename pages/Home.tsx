@@ -226,9 +226,9 @@ export default function Home({ wishlist, onToggleWishlist }: HomeProps) {
 
         {/* Footer with Vertical Stack */}
         <footer className="border-t border-gray-100 pt-10 pb-16 flex flex-col items-center space-y-4">
-          {/* 1. Admin Login */}
+          {/* 1. STOREKEEPER */}
           <Link to="/admin" className="text-gray-300 hover:text-pink-500 text-[10px] font-bold uppercase tracking-widest transition-colors">
-             Admin Login
+             STOREKEEPER
           </Link>
 
           {/* 2. Developer */}
@@ -240,7 +240,7 @@ export default function Home({ wishlist, onToggleWishlist }: HomeProps) {
           </button>
           
           {/* 3. Copyright */}
-          <p className="text-gray-200 text-[10px] font-medium tracking-wide mt-2">© 2024 Cakes N Bells</p>
+          <p className="text-gray-200 text-[10px] font-medium tracking-wide mt-2">© 2026 Cakes N Bells</p>
         </footer>
       </section>
 
