@@ -51,6 +51,23 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ wishlist, onToggleWishlis
   const pricePerUnit = product.prices[selectedWeight as keyof typeof product.prices] || 0;
   const totalPrice = pricePerUnit * quantity;
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Check out ${product.name} at Cakes N Bells!`,
+          text: product.description,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.log('Error sharing', error);
+      }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert("Link copied to clipboard!");
+    }
+  };
+
   const handleBuyNow = () => {
     navigate('/checkout', { 
       state: { 
@@ -110,6 +127,15 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ wishlist, onToggleWishlis
             ))}
           </div>
         )}
+
+        {/* Share Button */}
+        <button 
+          onClick={handleShare}
+          className="absolute top-4 right-16 z-20 w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow-lg flex items-center justify-center text-gray-700 active:scale-90 transition-all border border-pink-50"
+          title="Share"
+        >
+          <i className="fas fa-share-nodes text-lg"></i>
+        </button>
 
         {/* Wishlist Toggle */}
         <button 

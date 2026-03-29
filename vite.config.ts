@@ -3,18 +3,13 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Load env file based on `mode` in the current working directory.
-  // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '');
   
   return {
     plugins: [react()],
     define: {
-      // This is crucial: It replaces 'process.env.API_KEY' in your code 
-      // with the actual value from Vercel environment variables during build.
-      'process.env.API_KEY': JSON.stringify(env.API_KEY),
-      // Polyfill process.env for other uses if necessary, though ideally avoid this.
-      'process.env': {}
+      // Support both Vercel (where you might set GEMINI_API_KEY) and local dev
+      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY),
     },
   };
 });

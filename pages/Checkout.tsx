@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CustomerDetails, OrderItem } from '../types';
 
@@ -21,6 +21,25 @@ const Checkout: React.FC<CheckoutProps> = ({ setLastOrder }) => {
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof CustomerDetails, string>>>({});
+  const [showSavePrompt, setShowSavePrompt] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('savedCustomerDetails');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setForm(prev => ({
+          ...prev,
+          fullName: parsed.fullName || '',
+          mobile: parsed.mobile || '',
+          address: parsed.address || '',
+          pincode: parsed.pincode || ''
+        }));
+      } catch (e) {
+        console.error('Failed to parse saved address', e);
+      }
+    }
+  }, []);
 
   if (!item) {
     return (
@@ -45,9 +64,44 @@ const Checkout: React.FC<CheckoutProps> = ({ setLastOrder }) => {
 
   const handleProceed = () => {
     if (validate()) {
-      setLastOrder({ item, customer: form });
-      navigate('/payment');
+      const saved = localStorage.getItem('savedCustomerDetails');
+      let shouldPrompt = true;
+      
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (
+            parsed.fullName === form.fullName &&
+            parsed.mobile === form.mobile &&
+            parsed.address === form.address &&
+            parsed.pincode === form.pincode
+          ) {
+            shouldPrompt = false;
+          }
+        } catch (e) {}
+      }
+
+      if (shouldPrompt) {
+        setShowSavePrompt(true);
+      } else {
+        executeProceed();
+      }
     }
+  };
+
+  const executeProceed = (saveAddress: boolean = false) => {
+    if (saveAddress) {
+      const detailsToSave = {
+        fullName: form.fullName,
+        mobile: form.mobile,
+        address: form.address,
+        pincode: form.pincode
+      };
+      localStorage.setItem('savedCustomerDetails', JSON.stringify(detailsToSave));
+    }
+    setShowSavePrompt(false);
+    setLastOrder({ item, customer: form });
+    navigate('/payment');
   };
 
   return (
@@ -158,6 +212,35 @@ const Checkout: React.FC<CheckoutProps> = ({ setLastOrder }) => {
           Proceed to Order
         </button>
       </div>
+
+      {/* Save Address Prompt Modal */}
+      {showSavePrompt && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="w-16 h-16 bg-pink-50 text-pink-500 rounded-full flex items-center justify-center mb-6 mx-auto text-2xl">
+              <i className="fas fa-map-marker-alt"></i>
+            </div>
+            <h3 className="text-2xl font-bold text-center text-gray-800 mb-2 font-serif">Save Details?</h3>
+            <p className="text-center text-gray-500 text-sm mb-8">
+              Would you like to save this delivery address and contact info for faster checkout next time?
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => executeProceed(false)}
+                className="flex-1 py-3.5 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors active:scale-95"
+              >
+                No, Thanks
+              </button>
+              <button
+                onClick={() => executeProceed(true)}
+                className="flex-1 py-3.5 rounded-xl font-bold text-white cake-pink hover:bg-pink-500 transition-colors shadow-lg shadow-pink-200 active:scale-95"
+              >
+                Yes, Save It
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

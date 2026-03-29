@@ -49,7 +49,7 @@ export default function AdminPage() {
     
     setIsGeneratingDesc(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `Write a short, appetizing, 2-sentence description for a ${formData.category} named '${formData.name}'. Make it sound premium and delicious. Do not use markdown.`,
@@ -77,7 +77,7 @@ export default function AdminPage() {
     setGeneratedImage(null); // Clear previous result
     
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       // gemini-2.5-flash-image (Nano Banana)
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash-image',

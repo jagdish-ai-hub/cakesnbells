@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import Home from './pages/Home';
 import CategoryPage from './pages/CategoryPage';
 import ProductDetail from './pages/ProductDetail';
@@ -100,7 +99,6 @@ const App: React.FC = () => {
             </Routes>
           </main>
         </div>
-        <SpeedInsights />
       </Router>
     </ProductProvider>
   );
