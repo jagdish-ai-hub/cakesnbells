@@ -635,7 +635,7 @@ export default function AdminPage() {
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-pink-50 mt-8">
         <h3 className="text-lg font-bold text-gray-800 mb-4 font-serif">Data Backup & Restore</h3>
         <p className="text-xs text-gray-500 mb-4">
-          Always create a backup after new data is entered or old data is modified.
+          take a backup everytime u modify products or add new product
         </p>
         <div className="flex flex-wrap gap-4">
           <button 
