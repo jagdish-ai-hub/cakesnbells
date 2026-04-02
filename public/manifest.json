@@ -1,37 +1,37 @@
 {
   "name": "Cakes N Bells",
   "short_name": "CakesNBells",
-  "id": "/",
+  "id": "com.cakesnbells.app",
   "description": "Premium Cake Shop & Confectionery",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff9f9",
   "theme_color": "#ff85a1",
   "icons": [
     {
-      "src": "https://drive.google.com/thumbnail?id=1YiXL5UL6sHj8ERjVgqLFyRm_VOsHs7zJ&sz=w1000",
+      "src": "pwa-icon.jpg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any"
     },
     {
-      "src": "https://drive.google.com/thumbnail?id=1YiXL5UL6sHj8ERjVgqLFyRm_VOsHs7zJ&sz=w1000",
+      "src": "pwa-icon.jpg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any"
     },
     {
-      "src": "https://drive.google.com/thumbnail?id=1YiXL5UL6sHj8ERjVgqLFyRm_VOsHs7zJ&sz=w1000",
+      "src": "pwa-icon.jpg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "maskable"
     },
     {
-      "src": "https://drive.google.com/thumbnail?id=1YiXL5UL6sHj8ERjVgqLFyRm_VOsHs7zJ&sz=w1000",
+      "src": "pwa-icon.jpg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "maskable"
     }
   ]
