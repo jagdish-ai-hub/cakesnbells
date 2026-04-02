@@ -3,14 +3,12 @@ import { useProducts } from '../context/ProductContext';
 import { Product, PaymentTier, Category } from '../types';
 import { Link } from 'react-router-dom';
 import { GoogleGenAI } from "@google/genai";
-import { useWebSocket } from '../context/WebSocketContext';
 
 // Simple ID generator if uuid isn't available in environment
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
 export default function AdminPage() {
   const { products, sections, addProduct, updateProduct, deleteProduct, addSection, deleteSection, restoreData } = useProducts();
-  const { sendNotification } = useWebSocket();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -20,10 +18,6 @@ export default function AdminPage() {
   
   // State for new section input
   const [newSectionName, setNewSectionName] = useState('');
-
-  // Notification State
-  const [notificationTitle, setNotificationTitle] = useState('');
-  const [notificationBody, setNotificationBody] = useState('');
 
   // AI Loading States
   const [isGeneratingDesc, setIsGeneratingDesc] = useState(false);
@@ -197,17 +191,6 @@ export default function AdminPage() {
     if (window.confirm(`Delete collection "${sectionName}"?`)) {
       deleteSection(sectionName);
     }
-  };
-
-  // --- NOTIFICATION LOGIC ---
-  const handleSendNotification = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!notificationTitle.trim() || !notificationBody.trim()) return;
-    
-    sendNotification(notificationTitle, notificationBody);
-    alert('Notification broadcasted to all active users!');
-    setNotificationTitle('');
-    setNotificationBody('');
   };
 
   // --- CRUD LOGIC ---
@@ -615,44 +598,6 @@ export default function AdminPage() {
           </form>
         </div>
       )}
-
-      {/* BROADCAST NOTIFICATION SECTION */}
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-pink-50 mt-8 mb-8">
-        <h3 className="text-lg font-bold text-gray-800 mb-4 font-serif flex items-center">
-          <i className="fas fa-bell text-pink-500 mr-2"></i> Broadcast Notification
-        </h3>
-        <p className="text-xs text-gray-500 mb-4">
-          Send a real-time push notification to all users currently viewing the app.
-        </p>
-        <form onSubmit={handleSendNotification} className="space-y-4">
-          <div>
-            <input 
-              type="text" 
-              placeholder="Notification Title"
-              value={notificationTitle}
-              onChange={e => setNotificationTitle(e.target.value)}
-              className="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-sm outline-none focus:border-pink-400"
-              required
-            />
-          </div>
-          <div>
-            <textarea 
-              placeholder="Notification Message"
-              value={notificationBody}
-              onChange={e => setNotificationBody(e.target.value)}
-              className="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-sm outline-none focus:border-pink-400 resize-none"
-              rows={2}
-              required
-            />
-          </div>
-          <button 
-            type="submit"
-            className="px-6 py-3 bg-pink-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-pink-200 hover:bg-pink-600 active:scale-95 transition-all flex items-center"
-          >
-            <i className="fas fa-paper-plane mr-2"></i> Send to All Users
-          </button>
-        </form>
-      </div>
 
       <div className="grid grid-cols-1 gap-4">
         {products.map(product => (
