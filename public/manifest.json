@@ -11,61 +11,61 @@
   "theme_color": "#ff85a1",
     "icons": [
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w72",
         "sizes": "72x72",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w96",
         "sizes": "96x96",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w128",
         "sizes": "128x128",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w144",
         "sizes": "144x144",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w152",
         "sizes": "152x152",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w192",
         "sizes": "192x192",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w384",
         "sizes": "384x384",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w512",
         "sizes": "512x512",
         "type": "image/jpeg",
         "purpose": "any"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w192",
         "sizes": "192x192",
         "type": "image/jpeg",
         "purpose": "maskable"
       },
       {
-        "src": "pwa-icon.jpg",
+        "src": "https://drive.google.com/thumbnail?id=107wpcYSf0HfVUS72PyjzFJoC3-UHvsmd&sz=w512",
         "sizes": "512x512",
         "type": "image/jpeg",
         "purpose": "maskable"
