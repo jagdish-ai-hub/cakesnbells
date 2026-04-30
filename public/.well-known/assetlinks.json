@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.vercel.cakesnbells.twa",
+    "sha256_cert_fingerprints": ["D0:F8:3E:1F:78:4A:0B:E4:CB:E2:35:33:50:FD:3C:0E:B6:01:DB:E5:98:79:7A:65:88:B8:C4:E4:6E:95:44:A3"]
+  }
+}]
